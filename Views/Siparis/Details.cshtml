@@ -1,0 +1,37 @@
+@model IkinciElKitapProjesi.Models.Siparis
+
+@{
+    ViewData["Title"] = "Sipariş Detayları";
+}
+
+<h1>Sipariş Detayları</h1>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            İlan
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Ilan.Baslik)
+        </dd>
+        
+        <dt class="col-sm-2">
+            Alıcı
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Alici.AdSoyad)
+        </dd>
+        
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SiparisTarihi)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SiparisTarihi)
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.SiparisID" class="btn btn-warning">Düzenle</a> |
+    <a asp-action="Index" class="btn btn-secondary">Geri Dön</a>
+</div> 

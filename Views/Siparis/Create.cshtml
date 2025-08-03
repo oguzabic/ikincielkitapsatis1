@@ -1,0 +1,155 @@
+@model IkinciElKitapProjesi.Models.Siparis
+
+@{
+    ViewData["Title"] = "Sipariş Onayı";
+    var ilan = ViewBag.Ilan as IkinciElKitapProjesi.Models.Ilan;
+    var adresler = ViewBag.Adresler as List<IkinciElKitapProjesi.Models.Adres>;
+    var kartlar = ViewBag.Kartlar as List<IkinciElKitapProjesi.Models.Kart>;
+}
+
+<h1>Sipariş Onayı</h1>
+
+@if (ilan != null)
+{
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Satın Alma Detayları</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Kitap Bilgileri</h5>
+                            <p><strong>Kitap Adı:</strong> @ilan.Kitap?.Baslik</p>
+                            <p><strong>Yazar:</strong> @ilan.Kitap?.Yazar</p>
+                            <p><strong>Yayınevi:</strong> @ilan.Kitap?.Yayinevi</p>
+                            <p><strong>Yıl:</strong> @ilan.Kitap?.Yil</p>
+                            <p><strong>Durum:</strong> @ilan.Durum</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Satıcı Bilgileri</h5>
+                            <p><strong>Satıcı:</strong> @ilan.Satici?.Ad @ilan.Satici?.Soyad</p>
+                            <p><strong>Email:</strong> @ilan.Satici?.Email</p>
+                            <p><strong>İlan Tarihi:</strong> @ilan.Tarih.ToShortDateString()</p>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="text-center">
+                        <h4 class="text-success">Fiyat: @ilan.Fiyat.ToString("C")</h4>
+                    </div>
+                    
+                    <form asp-action="Create" method="post">
+                        <input type="hidden" asp-for="IlanID" value="@ilan.IlanID" />
+                        <input type="hidden" asp-for="SiparisTarihi" value="@DateTime.Now" />
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>Teslimat Adresi</h5>
+                                @if (adresler != null && adresler.Any())
+                                {
+                                    <div class="form-group mb-3">
+                                        <label asp-for="AdresID" class="form-label">Adres Seçiniz *</label>
+                                        <select asp-for="AdresID" class="form-control" required>
+                                            <option value="">Adres Seçiniz *</option>
+                                            @foreach (var adres in adresler)
+                                            {
+                                                <option value="@adres.AdresID">
+                                                    @adres.Baslik - @adres.Il/@adres.Ilce
+                                                </option>
+                                            }
+                                        </select>
+                                        <span asp-validation-for="AdresID" class="text-danger"></span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="alert alert-warning">
+                                        <p>Henüz adresiniz bulunmuyor.</p>
+                                        <a asp-controller="Adres" asp-action="Create" class="btn btn-primary btn-sm">Adres Ekle</a>
+                                    </div>
+                                }
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <h5>Ödeme Yöntemi</h5>
+                                <div class="form-group mb-3">
+                                    <label asp-for="OdemeYontemi" class="form-label">Ödeme Yöntemi Seçiniz *</label>
+                                    <select asp-for="OdemeYontemi" class="form-control" required onchange="odemeYontemiDegisti()">
+                                        <option value="">Ödeme Yöntemi Seçiniz *</option>
+                                        <option value="Kapıda Ödeme">Kapıda Ödeme</option>
+                                        <option value="Kart ile Ödeme">Kart ile Ödeme</option>
+                                    </select>
+                                    <span asp-validation-for="OdemeYontemi" class="text-danger"></span>
+                                </div>
+                                
+                                <div id="kartSecimi" style="display: none;">
+                                    @if (kartlar != null && kartlar.Any())
+                                    {
+                                        <div class="form-group mb-3">
+                                            <label asp-for="KartID" class="form-label">Kart Seçiniz</label>
+                                            <select asp-for="KartID" class="form-control">
+                                                <option value="">Kart Seçiniz</option>
+                                                @foreach (var kart in kartlar)
+                                                {
+                                                    <option value="@kart.KartID">
+                                                        @kart.KartTipi - **** **** **** @kart.KartNumarasi?.Substring(kart.KartNumarasi.Length - 4)
+                                                    </option>
+                                                }
+                                            </select>
+                                            <span asp-validation-for="KartID" class="text-danger"></span>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="alert alert-warning">
+                                            <p>Henüz kartınız bulunmuyor.</p>
+                                            <a asp-controller="Kart" asp-action="Create" class="btn btn-primary btn-sm">Kart Ekle</a>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-success btn-lg" 
+                                    @if (adresler == null || !adresler.Any()) { <text>disabled</text> }>
+                                <i class="fas fa-shopping-cart"></i> Satın Al
+                            </button>
+                            <a asp-controller="Ilan" asp-action="Index" class="btn btn-secondary btn-lg">
+                                <i class="fas fa-arrow-left"></i> Geri Dön
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="alert alert-danger">
+        <h4>Hata!</h4>
+        <p>İlan bulunamadı veya artık mevcut değil.</p>
+        <a asp-controller="Ilan" asp-action="Index" class="btn btn-primary">İlanlara Dön</a>
+    </div>
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    <script>
+        function odemeYontemiDegisti() {
+            var odemeYontemi = document.getElementById('OdemeYontemi').value;
+            var kartSecimi = document.getElementById('kartSecimi');
+            
+            if (odemeYontemi === 'Kart ile Ödeme') {
+                kartSecimi.style.display = 'block';
+            } else {
+                kartSecimi.style.display = 'none';
+            }
+        }
+    </script>
+} 

@@ -1,0 +1,90 @@
+@model IEnumerable<IkinciElKitapProjesi.Models.Siparis>
+
+@{
+    ViewData["Title"] = "Siparişler";
+}
+
+<h1>Siparişlerim</h1>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">@item.Ilan?.Baslik</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Kitap:</strong> @item.Ilan?.Kitap?.Baslik</p>
+                            <p><strong>Yazar:</strong> @item.Ilan?.Kitap?.Yazar</p>
+                            <p><strong>Fiyat:</strong> @item.Ilan?.Fiyat.ToString("C")</p>
+                            <p><strong>Ödeme:</strong> @item.OdemeYontemi</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Satıcı:</strong> @item.Ilan?.Satici?.Ad @item.Ilan?.Satici?.Soyad</p>
+                            <p><strong>Teslimat:</strong> @item.Adres?.Il/@item.Adres?.Ilce</p>
+                            <p><strong>Sipariş Tarihi:</strong> @item.SiparisTarihi.ToShortDateString()</p>
+                            <p><strong>Durum:</strong> 
+                                @if (item.Durum == "Beklemede")
+                                {
+                                    <span class="badge bg-warning">@item.Durum</span>
+                                }
+                                else if (item.Durum == "Onaylandı")
+                                {
+                                    <span class="badge bg-info">@item.Durum</span>
+                                }
+                                else if (item.Durum == "Kargoda")
+                                {
+                                    <span class="badge bg-primary">@item.Durum</span>
+                                }
+                                else if (item.Durum == "Teslim Edildi")
+                                {
+                                    <span class="badge bg-success">@item.Durum</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">@item.Durum</span>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="btn-group w-100" role="group">
+                        <a asp-action="Details" asp-route-id="@item.SiparisID" class="btn btn-info btn-sm">Detaylar</a>
+                        <a asp-action="Delete" asp-route-id="@item.SiparisID" class="btn btn-danger btn-sm" 
+                           onclick="return confirm('Bu siparişi silmek istediğinizden emin misiniz?')">Sil</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@if (!Model.Any())
+{
+    <div class="text-center py-5">
+        <i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
+        <h4 class="text-muted">Henüz siparişiniz bulunmuyor</h4>
+        <p class="text-muted">İlanları inceleyerek sipariş verebilirsiniz.</p>
+        <a asp-controller="Ilan" asp-action="Index" class="btn btn-primary">İlanları İncele</a>
+    </div>
+} 

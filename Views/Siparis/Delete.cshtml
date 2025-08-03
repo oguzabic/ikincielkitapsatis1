@@ -1,0 +1,42 @@
+@model IkinciElKitapProjesi.Models.Siparis
+
+@{
+    ViewData["Title"] = "Sipariş Sil";
+}
+
+<h1>Sipariş Sil</h1>
+
+<div class="alert alert-danger">
+    <h3>Bu siparişi silmek istediğinizden emin misiniz?</h3>
+</div>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            İlan
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Ilan.Baslik)
+        </dd>
+        
+        <dt class="col-sm-2">
+            Alıcı
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Alici.AdSoyad)
+        </dd>
+        
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SiparisTarihi)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SiparisTarihi)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="SiparisID" />
+        <input type="submit" value="Sil" class="btn btn-danger" /> |
+        <a asp-action="Index" class="btn btn-secondary">Geri Dön</a>
+    </form>
+</div> 

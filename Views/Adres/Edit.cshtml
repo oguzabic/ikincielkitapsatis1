@@ -1,0 +1,107 @@
+@model IkinciElKitapProjesi.Models.Adres
+
+@{
+    ViewData["Title"] = "Adres Düzenle";
+}
+
+<h1>Adres Düzenle</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="AdresID" />
+            
+            <div class="form-group mb-3">
+                <label asp-for="Baslik" class="control-label"></label>
+                <input asp-for="Baslik" class="form-control" placeholder="Ev, İş, Yazlık vb." />
+                <span asp-validation-for="Baslik" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group mb-3">
+                <label asp-for="Il" class="control-label">İl *</label>
+                <select asp-for="Il" id="ilSelect" class="form-control" required>
+                    <option value="">İl Seçiniz *</option>
+                    @foreach (var il in ViewBag.Iller)
+                    {
+                        if (il.Text == Model.Il)
+                        {
+                            <option value="@il.Text" selected>@il.Text</option>
+                        }
+                        else
+                        {
+                            <option value="@il.Text">@il.Text</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="Il" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group mb-3">
+                <label asp-for="Ilce" class="control-label">İlçe *</label>
+                <select asp-for="Ilce" id="ilceSelect" class="form-control" required>
+                    <option value="">İlçe Seçiniz *</option>
+                </select>
+                <span asp-validation-for="Ilce" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group mb-3">
+                <label asp-for="AdresDetay" class="control-label"></label>
+                <textarea asp-for="AdresDetay" class="form-control" rows="3" 
+                          placeholder="Mahalle, sokak, cadde, bina no, daire no vb. detayları yazınız"></textarea>
+                <span asp-validation-for="AdresDetay" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group mb-3">
+                <label asp-for="PostaKodu" class="control-label"></label>
+                <input asp-for="PostaKodu" class="form-control" placeholder="34000" />
+                <span asp-validation-for="PostaKodu" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Güncelle" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Geri Dön</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    <script>
+        $(document).ready(function() {
+            var selectedIl = '@Model.Il';
+            var selectedIlce = '@Model.Ilce';
+            
+            // Sayfa yüklendiğinde mevcut değerleri yükle
+            if (selectedIl) {
+                loadIlceler(selectedIl, selectedIlce);
+            }
+            
+            // İl seçildiğinde
+            $('#ilSelect').change(function() {
+                var selectedIl = $(this).val();
+                if (selectedIl) {
+                    loadIlceler(selectedIl, null);
+                } else {
+                    $('#ilceSelect').empty();
+                    $('#ilceSelect').append('<option value="">Önce İl Seçiniz</option>');
+                    $('#ilceSelect').prop('disabled', true);
+                }
+            });
+            
+            function loadIlceler(il, selectedIlce) {
+                $.get('/Adres/GetIlceler', { il: il }, function(data) {
+                    $('#ilceSelect').empty();
+                    $('#ilceSelect').append('<option value="">İlçe Seçiniz *</option>');
+                    $.each(data, function(index, item) {
+                        var selected = (selectedIlce && item === selectedIlce) ? 'selected' : '';
+                        $('#ilceSelect').append('<option value="' + item + '" ' + selected + '>' + item + '</option>');
+                    });
+                    $('#ilceSelect').prop('disabled', false);
+                });
+            }
+        });
+    </script>
+} 

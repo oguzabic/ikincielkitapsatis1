@@ -1,0 +1,15 @@
+@model IkinciElKitapProjesi.Models.Kategori
+
+<h1>Kategori Sil</h1>
+
+<p>Bu kategoriyi silmek istediğinizden emin misiniz?</p>
+
+<div>
+    <p><strong>Kategori Adı:</strong> @Model.KategoriAdi</p>
+</div>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="KategoriID" />
+    <button type="submit">Sil</button>
+    <a asp-action="Index">Geri Dön</a>
+</form> 

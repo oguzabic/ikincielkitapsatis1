@@ -1,0 +1,115 @@
+@model IEnumerable<IkinciElKitapProjesi.Models.Ilan>
+
+@{
+    ViewData["Title"] = "İlanlar";
+    var currentUserId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+}
+
+<h1>İlanlar</h1>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Yeni İlan Ekle</a>
+    </p>
+}
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                @if (!string.IsNullOrEmpty(item.ResimYolu))
+                {
+                    <img src="@item.ResimYolu" class="card-img-top" alt="@item.Baslik" style="height: 200px; object-fit: cover;">
+                }
+                else
+                {
+                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                        <i class="fas fa-book fa-3x text-muted"></i>
+                    </div>
+                }
+                <div class="card-body">
+                    <h5 class="card-title">@item.Baslik</h5>
+                    <p class="card-text">
+                        <strong>Fiyat:</strong> @item.Fiyat.ToString("C")<br>
+                        <strong>Durum:</strong> @item.Durum<br>
+                        <strong>Satıcı:</strong> @item.Satici?.Ad @item.Satici?.Soyad<br>
+                        <strong>Tarih:</strong> @item.Tarih.ToShortDateString()
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <div class="btn-group w-100" role="group">
+                        <a asp-action="Details" asp-route-id="@item.IlanID" class="btn btn-info btn-sm">Detaylar</a>
+                        
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @if (currentUserId == item.SaticiID.ToString())
+                            {
+                                <a asp-action="Edit" asp-route-id="@item.IlanID" class="btn btn-warning btn-sm">Düzenle</a>
+                                <a asp-action="Delete" asp-route-id="@item.IlanID" class="btn btn-danger btn-sm">Sil</a>
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-success btn-sm" 
+                                        onclick="satinAl(@item.IlanID, '@item.Baslik', @item.Fiyat)">
+                                    Satın Al
+                                </button>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<!-- Satın Alma Modal -->
+<div class="modal fade" id="satinAlModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Satın Alma Onayı</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Kitap:</strong> <span id="modalKitapAdi"></span></p>
+                <p><strong>Fiyat:</strong> <span id="modalFiyat"></span></p>
+                <p>Bu kitabı satın almak istediğinizden emin misiniz?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                <button type="button" class="btn btn-success" onclick="siparisOlustur()">Satın Al</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let selectedIlanId = null;
+        
+        function satinAl(ilanId, kitapAdi, fiyat) {
+            selectedIlanId = ilanId;
+            document.getElementById('modalKitapAdi').textContent = kitapAdi;
+            document.getElementById('modalFiyat').textContent = fiyat.toLocaleString('tr-TR', { style: 'currency', currency: 'TRY' });
+            
+            var modal = new bootstrap.Modal(document.getElementById('satinAlModal'));
+            modal.show();
+        }
+        
+        function siparisOlustur() {
+            if (selectedIlanId) {
+                window.location.href = '/Siparis/Create?ilanId=' + selectedIlanId;
+            }
+        }
+    </script>
+} 

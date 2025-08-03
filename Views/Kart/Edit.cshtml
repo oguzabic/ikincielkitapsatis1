@@ -1,0 +1,67 @@
+@model IkinciElKitapProjesi.Models.Kart
+
+@{
+    ViewData["Title"] = "Kart Düzenle";
+}
+
+<h1>Kart Düzenle</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="KartID" />
+            
+            <div class="form-group mb-3">
+                <label asp-for="KartNumarasi" class="control-label">Kart Numarası *</label>
+                <input asp-for="KartNumarasi" class="form-control" placeholder="1234567890123456" maxlength="16" required />
+                <span asp-validation-for="KartNumarasi" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group mb-3">
+                <label asp-for="SonKullanmaTarihi" class="control-label">Son Kullanma Tarihi *</label>
+                <input asp-for="SonKullanmaTarihi" class="form-control" type="date" required />
+                <span asp-validation-for="SonKullanmaTarihi" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group mb-3">
+                <label asp-for="CVV" class="control-label">CVV *</label>
+                <input asp-for="CVV" class="form-control" placeholder="123" maxlength="4" required />
+                <span asp-validation-for="CVV" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group mb-3">
+                <label asp-for="KartTipi" class="control-label">Kart Tipi *</label>
+                <select asp-for="KartTipi" class="form-control" required>
+                    <option value="">Kart Tipi Seçiniz *</option>
+                    @if (Model.KartTipi == "Banka Kartı")
+                    {
+                        <option value="Banka Kartı" selected>Banka Kartı</option>
+                    }
+                    else
+                    {
+                        <option value="Banka Kartı">Banka Kartı</option>
+                    }
+                    @if (Model.KartTipi == "Kredi Kartı")
+                    {
+                        <option value="Kredi Kartı" selected>Kredi Kartı</option>
+                    }
+                    else
+                    {
+                        <option value="Kredi Kartı">Kredi Kartı</option>
+                    }
+                </select>
+                <span asp-validation-for="KartTipi" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Güncelle" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Geri Dön</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 

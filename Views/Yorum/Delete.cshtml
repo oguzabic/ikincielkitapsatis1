@@ -1,0 +1,56 @@
+@model IkinciElKitapProjesi.Models.Yorum
+
+@{
+    ViewData["Title"] = "Yorum Sil";
+}
+
+<h1>Yorum Sil</h1>
+
+<div class="alert alert-danger">
+    <h3>Bu yorumu silmek istediğinizden emin misiniz?</h3>
+</div>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            Kitap
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Kitap.Baslik)
+        </dd>
+        
+        <dt class="col-sm-2">
+            Kullanıcı
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Kullanici.AdSoyad)
+        </dd>
+        
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Puan)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Puan) Yıldız
+        </dd>
+        
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.YorumMetni)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.YorumMetni)
+        </dd>
+        
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Tarih)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Tarih)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="YorumID" />
+        <input type="submit" value="Sil" class="btn btn-danger" /> |
+        <a asp-action="Index" class="btn btn-secondary">Geri Dön</a>
+    </form>
+</div> 

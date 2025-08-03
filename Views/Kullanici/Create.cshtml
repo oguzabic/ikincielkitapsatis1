@@ -1,0 +1,63 @@
+@model IkinciElKitapProjesi.Models.Kullanici
+
+@{
+    ViewData["Title"] = "Kayıt Ol";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-center">Kayıt Ol</h2>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    
+                    <div class="form-group mb-3">
+                        <label asp-for="Ad" class="form-label">Ad *</label>
+                        <input asp-for="Ad" class="form-control" placeholder="Adınız" required />
+                        <span asp-validation-for="Ad" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group mb-3">
+                        <label asp-for="Soyad" class="form-label">Soyad *</label>
+                        <input asp-for="Soyad" class="form-control" placeholder="Soyadınız" required />
+                        <span asp-validation-for="Soyad" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group mb-3">
+                        <label asp-for="Email" class="form-label">Email *</label>
+                        <input asp-for="Email" type="email" class="form-control" placeholder="ornek@email.com" required />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group mb-3">
+                        <label asp-for="Sifre" class="form-label">Şifre *</label>
+                        <input asp-for="Sifre" type="password" class="form-control" placeholder="Şifreniz" required />
+                        <span asp-validation-for="Sifre" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group mb-3">
+                        <label asp-for="Rol" class="form-label">Rol *</label>
+                        <select asp-for="Rol" class="form-control" required>
+                            <option value="">Rol Seçiniz *</option>
+                            <option value="Satıcı">Satıcı</option>
+                            <option value="Alıcı">Alıcı</option>
+                        </select>
+                        <span asp-validation-for="Rol" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary">Kayıt Ol</button>
+                        <a asp-controller="Login" asp-action="Index" class="btn btn-secondary">Giriş Yap</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 

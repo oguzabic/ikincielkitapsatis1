@@ -1,0 +1,51 @@
+@model IEnumerable<IkinciElKitapProjesi.Models.Adres>
+
+@{
+    ViewData["Title"] = "Adreslerim";
+}
+
+<h1>Adreslerim</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Yeni Adres Ekle</a>
+</p>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        <i class="fas fa-info-circle"></i> Henüz adres eklenmemiş. <a asp-action="Create">İlk adresinizi ekleyin</a>
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-6 mb-3">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">@item.Baslik</h5>
+                        <div>
+                            <a asp-action="Edit" asp-route-id="@item.AdresID" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-edit"></i> Düzenle
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.AdresID" class="btn btn-sm btn-outline-danger">
+                                <i class="fas fa-trash"></i> Sil
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="mb-1"><strong>İl:</strong> @item.Il</p>
+                        <p class="mb-1"><strong>İlçe:</strong> @item.Ilce</p>
+                        <p class="mb-1"><strong>Adres Detayı:</strong></p>
+                        <p class="mb-2 text-muted">@item.AdresDetay</p>
+                        @if (!string.IsNullOrEmpty(item.PostaKodu))
+                        {
+                            <p class="mb-0"><strong>Posta Kodu:</strong> @item.PostaKodu</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+} 

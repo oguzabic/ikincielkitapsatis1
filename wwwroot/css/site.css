@@ -1,0 +1,99 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
+}
+
+/* Logo Stilleri */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Playfair Display', serif;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.logo-subtitle {
+  font-size: 0.8rem;
+  color: #7f8c8d;
+  font-weight: 300;
+  margin-top: -5px;
+}
+
+/* Navbar Stilleri */
+.navbar-brand {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+}
+
+/* Kitap Kartları */
+.book-card {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.book-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+/* Kültür Sanat Renkleri */
+.cultural-primary {
+  color: #8e44ad;
+}
+
+.cultural-secondary {
+  color: #e74c3c;
+}
+
+.cultural-accent {
+  color: #f39c12;
+}
+
+.bg-cultural-primary {
+  background-color: #8e44ad;
+}
+
+.bg-cultural-secondary {
+  background-color: #e74c3c;
+}
+
+.bg-cultural-accent {
+  background-color: #f39c12;
+}

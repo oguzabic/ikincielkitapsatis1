@@ -1,0 +1,51 @@
+@model IkinciElKitapProjesi.Models.Yorum
+
+@{
+    ViewData["Title"] = "Yorum Detayları";
+}
+
+<h1>Yorum Detayları</h1>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            Kitap
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Kitap.Baslik)
+        </dd>
+        
+        <dt class="col-sm-2">
+            Kullanıcı
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Kullanici.AdSoyad)
+        </dd>
+        
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Puan)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Puan) Yıldız
+        </dd>
+        
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.YorumMetni)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.YorumMetni)
+        </dd>
+        
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Tarih)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Tarih)
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.YorumID" class="btn btn-warning">Düzenle</a> |
+    <a asp-action="Index" class="btn btn-secondary">Geri Dön</a>
+</div> 

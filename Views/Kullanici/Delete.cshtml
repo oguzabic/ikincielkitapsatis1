@@ -1,0 +1,18 @@
+@model IkinciElKitapProjesi.Models.Kullanici
+
+<h1>Kullanıcı Sil</h1>
+
+<p>Bu kullanıcıyı silmek istediğinizden emin misiniz?</p>
+
+<div>
+    <p><strong>Ad:</strong> @Model.Ad</p>
+    <p><strong>Soyad:</strong> @Model.Soyad</p>
+    <p><strong>Email:</strong> @Model.Email</p>
+    <p><strong>Rol:</strong> @Model.Rol</p>
+</div>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="KullaniciID" />
+    <button type="submit">Sil</button>
+    <a asp-action="Index">Geri Dön</a>
+</form> 

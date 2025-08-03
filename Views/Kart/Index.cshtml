@@ -1,0 +1,47 @@
+@model IEnumerable<IkinciElKitapProjesi.Models.Kart>
+
+@{
+    ViewData["Title"] = "Kartlarım";
+}
+
+<h1>Kartlarım</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Yeni Kart Ekle</a>
+</p>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        <i class="fas fa-info-circle"></i> Henüz kart eklenmemiş. <a asp-action="Create">İlk kartınızı ekleyin</a>
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-6 mb-3">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">@item.KartTipi</h5>
+                        <div>
+                            <a asp-action="Edit" asp-route-id="@item.KartID" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-edit"></i> Düzenle
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.KartID" class="btn btn-sm btn-outline-danger">
+                                <i class="fas fa-trash"></i> Sil
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="mb-1"><strong>Kart Numarası:</strong> **** **** **** @item.KartNumarasi.Substring(12)</p>
+                        <p class="mb-1"><strong>Son Kullanma Tarihi:</strong> @item.SonKullanmaTarihi.ToString("MM/yyyy")</p>
+                        <p class="mb-1"><strong>CVV:</strong> ***</p>
+                        <p class="mb-0"><strong>Kart Tipi:</strong> @item.KartTipi</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+} 

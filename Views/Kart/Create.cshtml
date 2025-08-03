@@ -1,0 +1,77 @@
+@model IkinciElKitapProjesi.Models.Kart
+
+@{
+    ViewData["Title"] = "Yeni Kart Ekle";
+}
+
+<h1>Yeni Kart Ekle</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <div class="form-group mb-3">
+                <label asp-for="KartNumarasi" class="control-label">Kart Numarası *</label>
+                <input asp-for="KartNumarasi" class="form-control" placeholder="1234 5678 9012 3456" maxlength="19" required />
+                <span asp-validation-for="KartNumarasi" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group mb-3">
+                <label asp-for="SonKullanmaTarihi" class="control-label">Son Kullanma Tarihi *</label>
+                <input asp-for="SonKullanmaTarihi" class="form-control" type="date" required />
+                <span asp-validation-for="SonKullanmaTarihi" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group mb-3">
+                <label asp-for="CVV" class="control-label">CVV *</label>
+                <input asp-for="CVV" class="form-control" placeholder="123" maxlength="3" required />
+                <span asp-validation-for="CVV" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group mb-3">
+                <label asp-for="KartTipi" class="control-label">Kart Tipi *</label>
+                <select asp-for="KartTipi" class="form-control" required>
+                    <option value="">Kart Tipi Seçiniz *</option>
+                    <option value="Banka Kartı">Banka Kartı</option>
+                    <option value="Kredi Kartı">Kredi Kartı</option>
+                </select>
+                <span asp-validation-for="KartTipi" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Kart Ekle" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Geri Dön</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    <script>
+        $(document).ready(function() {
+            // Kart numarasını 4'lü gruplar halinde formatla
+            $('#KartNumarasi').on('input', function() {
+                var value = $(this).val().replace(/\s/g, '').replace(/\D/g, '');
+                var formattedValue = '';
+                
+                for (var i = 0; i < value.length; i++) {
+                    if (i > 0 && i % 4 === 0) {
+                        formattedValue += ' ';
+                    }
+                    formattedValue += value[i];
+                }
+                
+                $(this).val(formattedValue);
+            });
+            
+            // CVV'yi sadece rakam yap
+            $('#CVV').on('input', function() {
+                var value = $(this).val().replace(/\D/g, '');
+                $(this).val(value);
+            });
+        });
+    </script>
+} 

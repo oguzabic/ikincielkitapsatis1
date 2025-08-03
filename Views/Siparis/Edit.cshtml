@@ -1,0 +1,47 @@
+@model IkinciElKitapProjesi.Models.Siparis
+
+@{
+    ViewData["Title"] = "Sipariş Düzenle";
+}
+
+<h1>Sipariş Düzenle</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="SiparisID" />
+            
+            <div class="form-group">
+                <label asp-for="IlanID" class="control-label">İlan</label>
+                <select asp-for="IlanID" class="form-control" asp-items="ViewBag.IlanID">
+                    <option value="">İlan Seçiniz</option>
+                </select>
+                <span asp-validation-for="IlanID" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="AliciID" class="control-label">Alıcı</label>
+                <select asp-for="AliciID" class="form-control" asp-items="ViewBag.AliciID">
+                    <option value="">Alıcı Seçiniz</option>
+                </select>
+                <span asp-validation-for="AliciID" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="SiparisTarihi" class="control-label"></label>
+                <input asp-for="SiparisTarihi" class="form-control" type="datetime-local" />
+                <span asp-validation-for="SiparisTarihi" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group mt-3">
+                <input type="submit" value="Kaydet" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Geri Dön</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 

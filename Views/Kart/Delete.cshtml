@@ -1,0 +1,36 @@
+@model IkinciElKitapProjesi.Models.Kart
+
+@{
+    ViewData["Title"] = "Kart Sil";
+}
+
+<h1>Kart Sil</h1>
+
+<h3>Bu kartı silmek istediğinizden emin misiniz?</h3>
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">Kart ID</dt>
+        <dd class="col-sm-10">@Model.KartID</dd>
+        
+        <dt class="col-sm-2">Kullanıcı ID</dt>
+        <dd class="col-sm-10">@Model.KullaniciID</dd>
+        
+        <dt class="col-sm-2">Kart Numarası</dt>
+        <dd class="col-sm-10">@Model.KartNumarasi</dd>
+        
+        <dt class="col-sm-2">Son Kullanma Tarihi</dt>
+        <dd class="col-sm-10">@Model.SonKullanmaTarihi.ToShortDateString()</dd>
+        
+        <dt class="col-sm-2">CVV</dt>
+        <dd class="col-sm-10">@Model.CVV</dd>
+        
+        <dt class="col-sm-2">Kart Tipi</dt>
+        <dd class="col-sm-10">@Model.KartTipi</dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="KartID" />
+        <input type="submit" value="Sil" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary">Geri Dön</a>
+    </form>
+</div> 

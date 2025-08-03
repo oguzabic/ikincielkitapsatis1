@@ -1,0 +1,10 @@
+@model IkinciElKitapProjesi.Models.Kategori
+
+<h1>Kategori Detayları</h1>
+
+<div>
+    <p><strong>Kategori Adı:</strong> @Model.KategoriAdi</p>
+</div>
+
+<a asp-action="Edit" asp-route-id="@Model.KategoriID">Düzenle</a>
+<a asp-action="Index">Geri Dön</a> 

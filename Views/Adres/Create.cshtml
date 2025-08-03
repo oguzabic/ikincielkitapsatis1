@@ -1,0 +1,87 @@
+@model IkinciElKitapProjesi.Models.Adres
+
+@{
+    ViewData["Title"] = "Yeni Adres Ekle";
+}
+
+<h1>Yeni Adres Ekle</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <div class="form-group mb-3">
+                <label asp-for="Baslik" class="control-label"></label>
+                <input asp-for="Baslik" class="form-control" placeholder="Ev, İş, Yazlık vb." />
+                <span asp-validation-for="Baslik" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group mb-3">
+                <label asp-for="Il" class="control-label">İl *</label>
+                <select asp-for="Il" id="ilSelect" class="form-control" required>
+                    <option value="">İl Seçiniz *</option>
+                    @foreach (var il in ViewBag.Iller)
+                    {
+                        <option value="@il.Text">@il.Text</option>
+                    }
+                </select>
+                <span asp-validation-for="Il" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group mb-3">
+                <label asp-for="Ilce" class="control-label">İlçe *</label>
+                <select asp-for="Ilce" id="ilceSelect" class="form-control" required disabled>
+                    <option value="">Önce İl Seçiniz</option>
+                </select>
+                <span asp-validation-for="Ilce" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group mb-3">
+                <label asp-for="AdresDetay" class="control-label"></label>
+                <textarea asp-for="AdresDetay" class="form-control" rows="3" 
+                          placeholder="Mahalle, sokak, cadde, bina no, daire no vb. detayları yazınız"></textarea>
+                <span asp-validation-for="AdresDetay" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group mb-3">
+                <label asp-for="PostaKodu" class="control-label"></label>
+                <input asp-for="PostaKodu" class="form-control" placeholder="34000" />
+                <span asp-validation-for="PostaKodu" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Adres Ekle" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Geri Dön</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    <script>
+        $(document).ready(function() {
+            // İl seçildiğinde
+            $('#ilSelect').change(function() {
+                var selectedIl = $(this).val();
+                if (selectedIl) {
+                    // İlçeleri getir
+                    $.get('/Adres/GetIlceler', { il: selectedIl }, function(data) {
+                        $('#ilceSelect').empty();
+                        $('#ilceSelect').append('<option value="">İlçe Seçiniz *</option>');
+                        $.each(data, function(index, item) {
+                            $('#ilceSelect').append('<option value="' + item + '">' + item + '</option>');
+                        });
+                        $('#ilceSelect').prop('disabled', false);
+                    });
+                } else {
+                    $('#ilceSelect').empty();
+                    $('#ilceSelect').append('<option value="">Önce İl Seçiniz</option>');
+                    $('#ilceSelect').prop('disabled', true);
+                }
+            });
+        });
+    </script>
+} 

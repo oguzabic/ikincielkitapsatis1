@@ -1,0 +1,115 @@
+﻿@{
+    ViewData["Title"] = "Ana Sayfa";
+}
+
+<div class="text-center mb-5">
+    <div class="logo-container justify-content-center mb-3">
+        <img src="~/images/logo.svg" alt="Sahaf Yolu Logo" class="logo-icon" style="width: 80px; height: 80px;">
+        <div>
+            <h1 class="logo-text" style="font-size: 3rem;">Sahaf Yolu</h1>
+            <p class="logo-subtitle" style="font-size: 1.2rem;">Kültür & Sanat</p>
+        </div>
+    </div>
+    <p class="lead cultural-primary">Kitap tutkunları için güvenilir ikinci el kitap platformu</p>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-8">
+        <div class="card book-card">
+            <div class="card-body">
+                <h5 class="card-title cultural-primary">
+                    <i class="fas fa-book-open"></i> Hoş Geldiniz!
+                </h5>
+                <p class="card-text">
+                    Sahaf Yolu platformuna hoş geldiniz! Burada kitap tutkunları için özel olarak tasarlanmış 
+                    bir platform bulunmaktadır. Amacımız, okuma sevgisini yaymak ve kitapların ikinci hayatını 
+                    yaşamasını sağlamaktır.
+                </p>
+                <h6 class="cultural-secondary">
+                    <i class="fas fa-star"></i> Platformumuzun Özellikleri:
+                </h6>
+                <ul>
+                    <li><strong>Geniş Kitap Koleksiyonu:</strong> Roman, bilim kurgu, tarih, felsefe ve daha fazlası</li>
+                    <li><strong>Güvenli Alışveriş:</strong> Kullanıcı dostu arayüz ve güvenli ödeme sistemi</li>
+                    <li><strong>Kişisel Profil:</strong> Adreslerinizi ve ödeme bilgilerinizi güvenle saklayın</li>
+                    <li><strong>Kolay Kullanım:</strong> Basit ve anlaşılır arayüz</li>
+                </ul>
+                <p class="card-text">
+                    Hemen üye olun ve kitap dünyasının kapılarını aralayın!
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card book-card">
+            <div class="card-body">
+                <h5 class="card-title cultural-primary">
+                    <i class="fas fa-compass"></i> Hızlı Erişim
+                </h5>
+                <div class="d-grid gap-2">
+                    <a asp-controller="Ilan" asp-action="Index" class="btn btn-primary">
+                        <i class="fas fa-store"></i> Tüm İlanları Görüntüle
+                    </a>
+                    <a asp-controller="Kitap" asp-action="Index" class="btn btn-outline-primary">
+                        <i class="fas fa-book"></i> Kitaplar
+                    </a>
+                    <a asp-controller="Kategori" asp-action="Index" class="btn btn-outline-primary">
+                        <i class="fas fa-tags"></i> Kategoriler
+                    </a>
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <a asp-controller="Login" asp-action="Index" class="btn btn-success">
+                            <i class="fas fa-sign-in-alt"></i> Giriş Yap
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Son Eklenen İlanlar Bölümü -->
+@if (ViewBag.SonEklenenIlanlar != null && ViewBag.SonEklenenIlanlar.Count > 0)
+{
+    <div class="row">
+        <div class="col-12">
+            <h3 class="cultural-primary">
+                <i class="fas fa-clock"></i> Son Eklenen İlanlar
+            </h3>
+            <div class="row">
+                @foreach (var ilan in ViewBag.SonEklenenIlanlar)
+                {
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100 book-card">
+                            <div class="card-body">
+                                <h5 class="card-title">@(ilan.Kitap?.Baslik ?? "Kitap Bilgisi Yok")</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">@(ilan.Kitap?.Yazar ?? "Yazar Bilgisi Yok")</h6>
+                                <p class="card-text">
+                                    <small class="text-muted">
+                                        <strong><i class="fas fa-user"></i> Satıcı:</strong> @(ilan.Satici?.AdSoyad ?? "Bilinmeyen Satıcı")<br>
+                                        <strong><i class="fas fa-tag"></i> Fiyat:</strong> @ilan.Fiyat.ToString("C")<br>
+                                        <strong><i class="fas fa-info-circle"></i> Durum:</strong> @(ilan.Durum ?? "Belirtilmemiş")
+                                    </small>
+                                </p>
+                                <a asp-controller="Ilan" asp-action="Details" asp-route-id="@ilan.IlanID" class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-eye"></i> Detaylar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-12">
+            <div class="alert alert-info">
+                <h4><i class="fas fa-info-circle"></i> Henüz ilan eklenmemiş</h4>
+                <p>İlk ilanı eklemek için <a asp-controller="Ilan" asp-action="Create">tıklayın</a>.</p>
+            </div>
+        </div>
+    </div>
+}

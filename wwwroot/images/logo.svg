@@ -1,0 +1,40 @@
+<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bookGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8e44ad;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e74c3c;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="penGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f39c12;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e67e22;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Kitap -->
+  <rect x="8" y="12" width="24" height="16" rx="2" fill="url(#bookGradient)" stroke="#2c3e50" stroke-width="1"/>
+  <rect x="10" y="14" width="20" height="12" fill="white" opacity="0.9"/>
+  
+  <!-- Kitap Sayfaları -->
+  <line x1="12" y1="16" x2="28" y2="16" stroke="#34495e" stroke-width="0.5"/>
+  <line x1="12" y1="18" x2="28" y2="18" stroke="#34495e" stroke-width="0.5"/>
+  <line x1="12" y1="20" x2="28" y2="20" stroke="#34495e" stroke-width="0.5"/>
+  <line x1="12" y1="22" x2="28" y2="22" stroke="#34495e" stroke-width="0.5"/>
+  
+  <!-- Kalem -->
+  <line x1="25" y1="8" x2="32" y2="15" stroke="url(#penGradient)" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="32" cy="15" r="1.5" fill="url(#penGradient)"/>
+  
+  <!-- Kültür Sanat Sembolleri -->
+  <!-- Palet -->
+  <circle cx="6" cy="6" r="2" fill="#e74c3c" opacity="0.8"/>
+  <circle cx="8" cy="4" r="1" fill="#f39c12" opacity="0.8"/>
+  <circle cx="4" cy="8" r="1" fill="#3498db" opacity="0.8"/>
+  
+  <!-- Müzik Notası -->
+  <ellipse cx="34" cy="6" rx="1.5" ry="1" fill="#9b59b6" opacity="0.8"/>
+  <line x1="35.5" y1="6" x2="35.5" y2="10" stroke="#9b59b6" stroke-width="1" opacity="0.8"/>
+  
+  <!-- Dekoratif Çizgiler -->
+  <line x1="2" y1="35" x2="8" y2="35" stroke="#8e44ad" stroke-width="1" opacity="0.6"/>
+  <line x1="32" y1="35" x2="38" y2="35" stroke="#e74c3c" stroke-width="1" opacity="0.6"/>
+</svg> 

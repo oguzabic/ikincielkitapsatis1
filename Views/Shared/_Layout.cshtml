@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Sahaf Yolu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/IkinciElKitapProjesi.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <div class="logo-container">
+                        <img src="~/images/logo.svg" alt="Sahaf Yolu Logo" class="logo-icon">
+                        <div>
+                            <div class="logo-text">Sahaf Yolu</div>
+                            <div class="logo-subtitle">Kültür & Sanat</div>
+                        </div>
+                    </div>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">
+                                <i class="fas fa-home"></i> Ana Sayfa
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Kitap" asp-action="Index">
+                                <i class="fas fa-book"></i> Kitaplar
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Kategori" asp-action="Index">
+                                <i class="fas fa-tags"></i> Kategoriler
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Kullanici" asp-action="Index">
+                                <i class="fas fa-users"></i> Kullanıcılar
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Ilan" asp-action="Index">
+                                <i class="fas fa-store"></i> İlanlar
+                            </a>
+                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-user-circle"></i> Profil
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" asp-controller="Adres" asp-action="Index"><i class="fas fa-map-marker-alt"></i> Adresler</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Kart" asp-action="Index"><i class="fas fa-credit-card"></i> Kartlar</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Siparis" asp-action="Index"><i class="fas fa-shopping-cart"></i> Siparişler</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Yorum" asp-action="Index"><i class="fas fa-comments"></i> Yorumlar</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" asp-controller="Login" asp-action="Logout"><i class="fas fa-sign-out-alt"></i> Çıkış Yap</a></li>
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+                    <ul class="navbar-nav">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <span class="nav-link text-dark">
+                                    <i class="fas fa-user"></i> Merhaba, @User.Identity.Name!
+                                </span>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Login" asp-action="Index">
+                                    <i class="fas fa-sign-in-alt"></i> Giriş Yap
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Kullanici" asp-action="Create">
+                                    <i class="fas fa-user-plus"></i> Kayıt Ol
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="logo-container">
+                        <img src="~/images/logo.svg" alt="Sahaf Yolu Logo" class="logo-icon" style="width: 30px; height: 30px;">
+                        <div>
+                            <div class="logo-text" style="font-size: 1.2rem;">Sahaf Yolu</div>
+                            <div class="logo-subtitle">Kültür & Sanat</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 text-end">
+                    &copy; 2024 - Sahaf Yolu - <a asp-area="" asp-controller="Home" asp-action="Privacy">Gizlilik</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,40 @@
+@model IkinciElKitapProjesi.Models.Ilan
+
+<h1>Yeni İlan Ekle</h1>
+
+        <form asp-action="Create">
+    <div>
+        <label>Kitap:</label>
+        <select asp-for="KitapID" asp-items="ViewBag.KitapID">
+                    <option value="">Kitap Seçin</option>
+                </select>
+            </div>
+            
+    <div>
+        <label>Satıcı:</label>
+        <select asp-for="SaticiID" asp-items="ViewBag.SaticiID">
+            <option value="">Satıcı Seçin</option>
+        </select>
+            </div>
+            
+    <div>
+        <label>Fiyat:</label>
+        <input asp-for="Fiyat" type="number" step="0.01" />
+    </div>
+    
+    <div>
+        <label>Durum:</label>
+        <select asp-for="Durum">
+                    <option value="Yeni">Yeni</option>
+                    <option value="İkinci El">İkinci El</option>
+                </select>
+</div>
+
+    <div>
+        <label>Resim Yolu:</label>
+        <input asp-for="ResimYolu" />
+    </div>
+    
+    <button type="submit">Kaydet</button>
+    <a asp-action="Index">Geri Dön</a>
+</form> 

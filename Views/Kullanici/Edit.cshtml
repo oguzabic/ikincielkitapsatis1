@@ -1,0 +1,39 @@
+@model IkinciElKitapProjesi.Models.Kullanici
+
+<h1>Kullanıcı Düzenle</h1>
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="KullaniciID" />
+    
+    <div>
+        <label>Ad:</label>
+        <input asp-for="Ad" />
+    </div>
+    
+    <div>
+        <label>Soyad:</label>
+        <input asp-for="Soyad" />
+    </div>
+    
+    <div>
+        <label>Email:</label>
+        <input asp-for="Email" />
+    </div>
+    
+    <div>
+        <label>Şifre:</label>
+        <input asp-for="Sifre" type="password" />
+    </div>
+    
+    <div>
+        <label>Rol:</label>
+        <select asp-for="Rol">
+            <option value="Admin">Admin</option>
+            <option value="Satıcı">Satıcı</option>
+            <option value="Alıcı">Alıcı</option>
+        </select>
+    </div>
+    
+    <button type="submit">Kaydet</button>
+    <a asp-action="Index">Geri Dön</a>
+</form> 

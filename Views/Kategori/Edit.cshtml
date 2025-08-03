@@ -1,0 +1,15 @@
+@model IkinciElKitapProjesi.Models.Kategori
+
+<h1>Kategori Düzenle</h1>
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="KategoriID" />
+    
+    <div>
+        <label>Kategori Adı:</label>
+        <input asp-for="KategoriAdi" />
+    </div>
+    
+    <button type="submit">Kaydet</button>
+    <a asp-action="Index">Geri Dön</a>
+</form> 

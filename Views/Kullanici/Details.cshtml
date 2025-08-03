@@ -1,0 +1,13 @@
+@model IkinciElKitapProjesi.Models.Kullanici
+
+<h1>Kullanıcı Detayları</h1>
+
+<div>
+    <p><strong>Ad:</strong> @Model.Ad</p>
+    <p><strong>Soyad:</strong> @Model.Soyad</p>
+    <p><strong>Email:</strong> @Model.Email</p>
+    <p><strong>Rol:</strong> @Model.Rol</p>
+</div>
+
+<a asp-action="Edit" asp-route-id="@Model.KullaniciID">Düzenle</a>
+<a asp-action="Index">Geri Dön</a> 

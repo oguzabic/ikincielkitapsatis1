@@ -1,0 +1,66 @@
+@model IkinciElKitapProjesi.Models.Yorum
+
+@{
+    ViewData["Title"] = "Yorum Düzenle";
+}
+
+<h1>Yorum Düzenle</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="YorumID" />
+            
+            <div class="form-group">
+                <label asp-for="KitapID" class="control-label">Kitap</label>
+                <select asp-for="KitapID" class="form-control" asp-items="ViewBag.KitapID">
+                    <option value="">Kitap Seçiniz</option>
+                </select>
+                <span asp-validation-for="KitapID" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="KullaniciID" class="control-label">Kullanıcı</label>
+                <select asp-for="KullaniciID" class="form-control" asp-items="ViewBag.KullaniciID">
+                    <option value="">Kullanıcı Seçiniz</option>
+                </select>
+                <span asp-validation-for="KullaniciID" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Puan" class="control-label"></label>
+                <select asp-for="Puan" class="form-control">
+                    <option value="">Puan Seçiniz</option>
+                    <option value="1">1 Yıldız</option>
+                    <option value="2">2 Yıldız</option>
+                    <option value="3">3 Yıldız</option>
+                    <option value="4">4 Yıldız</option>
+                    <option value="5">5 Yıldız</option>
+                </select>
+                <span asp-validation-for="Puan" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="YorumMetni" class="control-label"></label>
+                <textarea asp-for="YorumMetni" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="YorumMetni" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Tarih" class="control-label"></label>
+                <input asp-for="Tarih" class="form-control" type="datetime-local" />
+                <span asp-validation-for="Tarih" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group mt-3">
+                <input type="submit" value="Kaydet" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Geri Dön</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 
